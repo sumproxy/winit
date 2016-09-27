@@ -41,9 +41,9 @@ lazy_static!(
 );
 
 pub enum Window {
-    #[doc(hidden)]
+    // #[doc(hidden)]
     X(x11::Window),
-    #[doc(hidden)]
+    // #[doc(hidden)]
     Wayland(wayland::Window)
 }
 

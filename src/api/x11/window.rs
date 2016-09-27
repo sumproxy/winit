@@ -41,13 +41,13 @@ struct WindowProxyData {
 unsafe impl Send for WindowProxyData {}
 
 pub struct XWindow {
-    display: Arc<XConnection>,
-    window: ffi::Window,
-    is_fullscreen: bool,
-    screen_id: libc::c_int,
-    xf86_desk_mode: Option<ffi::XF86VidModeModeInfo>,
-    ic: ffi::XIC,
-    im: ffi::XIM,
+    pub display: Arc<XConnection>,
+    pub window: ffi::Window,
+    pub is_fullscreen: bool,
+    pub screen_id: libc::c_int,
+    pub xf86_desk_mode: Option<ffi::XF86VidModeModeInfo>,
+    pub ic: ffi::XIC,
+    pub im: ffi::XIM,
     window_proxy_data: Arc<Mutex<Option<WindowProxyData>>>,
 }
 

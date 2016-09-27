@@ -65,8 +65,8 @@ pub use window::{WindowProxy, PollEventsIterator, WaitEventsIterator};
 pub use window::{AvailableMonitorsIter, MonitorId, get_available_monitors, get_primary_monitor};
 pub use native_monitor::NativeMonitorId;
 
-mod api;
-mod platform;
+pub mod api; // TODO: OZKRIFF
+pub mod platform; // TODO OZKRIFF
 mod events;
 mod window;
 
@@ -96,7 +96,7 @@ pub mod os;
 /// }
 /// ```
 pub struct Window {
-    window: platform::Window,
+    pub window: platform::Window, // TODO: OZKRIFF
 }
 
 /// Object that allows you to build windows.
