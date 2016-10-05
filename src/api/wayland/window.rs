@@ -23,8 +23,8 @@ impl WindowProxy {
 }
 
 pub struct Window {
-    wayland_context: &'static WaylandContext,
-    surface: WlSurface,
+    pub wayland_context: &'static WaylandContext,
+    pub surface: WlSurface,
     shell_window: Mutex<ShellWindow>,
     evt_queue: Arc<Mutex<VecDeque<Event>>>,
     inner_size: Mutex<(i32, i32)>,
