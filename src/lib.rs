@@ -96,14 +96,14 @@ pub mod os;
 /// }
 /// ```
 pub struct Window {
-    pub window: platform::Window, // TODO: OZKRIFF
+    window: platform::Window, // TODO: OZKRIFF
 }
 
 /// Object that allows you to build windows.
 #[derive(Clone)]
 pub struct WindowBuilder {
     /// The attributes to use to create the window.
-    pub window: WindowAttributes,
+    window: WindowAttributes,
 
     /// Platform-specific configuration.
     platform_specific: platform::PlatformSpecificWindowBuilderAttributes,
