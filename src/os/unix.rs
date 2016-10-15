@@ -1,9 +1,12 @@
 #![cfg(any(target_os = "linux", target_os = "dragonfly", target_os = "freebsd", target_os = "openbsd"))]
 
+use std::sync::Arc;
 use libc;
 use Window;
 use platform::Window as LinuxWindow;
 use WindowBuilder;
+use api::x11::XConnection;
+use api::wayland::WaylandContext;
 
 /// Additional methods on `Window` that are specific to Unix.
 pub trait WindowExt {
@@ -20,8 +23,11 @@ pub trait WindowExt {
     ///
     /// The pointer will become invalid when the glutin `Window` is destroyed.
     fn get_xlib_display(&self) -> Option<*mut libc::c_void>;
+
+    fn get_xlib_screen_id(&self) -> Option<*mut libc::c_void>;
+
+    fn get_xlib_xconnection(&self) -> Option<Arc<XConnection>>;
     
-    ///
     /// This function returns the underlying `xcb_connection_t` of an xlib `Display`.
     ///
     /// Returns `None` if the window doesn't use xlib (if it uses wayland for example).
@@ -42,6 +48,8 @@ pub trait WindowExt {
     ///
     /// The pointer will become invalid when the glutin `Window` is destroyed.
     fn get_wayland_display(&self) -> Option<*mut libc::c_void>;
+
+    fn get_wayland_context(&self) -> Option<&'static WaylandContext>;
 }
 
 impl WindowExt for Window {
@@ -57,6 +65,20 @@ impl WindowExt for Window {
     fn get_xlib_display(&self) -> Option<*mut libc::c_void> {
         match self.window {
             LinuxWindow::X(ref w) => Some(w.get_xlib_display()),
+            _ => None
+        }
+    }
+
+    fn get_xlib_screen_id(&self) -> Option<*mut libc::c_void> {
+        match self.window {
+            LinuxWindow::X(ref w) => Some(w.get_xlib_screen_id()),
+            _ => None
+        }
+    }
+
+    fn get_xlib_xconnection(&self) -> Option<Arc<XConnection>> {
+        match self.window {
+            LinuxWindow::X(ref w) => Some(w.get_xlib_xconnection()),
             _ => None
         }
     }
@@ -80,6 +102,14 @@ impl WindowExt for Window {
     fn get_wayland_display(&self) -> Option<*mut libc::c_void> {
         match self.window {
             LinuxWindow::Wayland(ref w) => Some(w.get_wayland_display()),
+            _ => None
+        }
+    }
+
+    #[inline]
+    fn get_wayland_context(&self) -> Option<&'static WaylandContext> {
+        match self.window {
+            LinuxWindow::Wayland(ref w) => Some(w.get_wayland_context()),
             _ => None
         }
     }

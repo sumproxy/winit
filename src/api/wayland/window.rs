@@ -23,8 +23,8 @@ impl WindowProxy {
 }
 
 pub struct Window {
-    pub wayland_context: &'static WaylandContext,
-    pub surface: WlSurface,
+    wayland_context: &'static WaylandContext,
+    surface: WlSurface,
     shell_window: Mutex<ShellWindow>,
     evt_queue: Arc<Mutex<VecDeque<Event>>>,
     inner_size: Mutex<(i32, i32)>,
@@ -296,6 +296,11 @@ impl Window {
     pub fn get_wayland_surface(&self) -> *mut libc::c_void {
         use wayland_client::Proxy;
         self.surface.ptr() as *mut libc::c_void
+    }
+
+    #[inline]
+    pub fn get_wayland_context(&self) -> &'static WaylandContext {
+        &self.wayland_context
     }
 
     #[inline]

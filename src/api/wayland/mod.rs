@@ -3,6 +3,8 @@
 pub use self::monitor::{MonitorId, get_available_monitors, get_primary_monitor};
 pub use self::window::{PollEventsIterator, WaitEventsIterator, Window, WindowProxy};
 
+pub use self::context::WaylandContext;
+
 extern crate wayland_kbd;
 extern crate wayland_window;
 

@@ -41,13 +41,13 @@ struct WindowProxyData {
 unsafe impl Send for WindowProxyData {}
 
 pub struct XWindow {
-    pub display: Arc<XConnection>,
-    pub window: ffi::Window,
-    pub is_fullscreen: bool,
-    pub screen_id: libc::c_int,
-    pub xf86_desk_mode: Option<ffi::XF86VidModeModeInfo>,
-    pub ic: ffi::XIC,
-    pub im: ffi::XIM,
+    display: Arc<XConnection>,
+    window: ffi::Window,
+    is_fullscreen: bool,
+    screen_id: libc::c_int,
+    xf86_desk_mode: Option<ffi::XF86VidModeModeInfo>,
+    ic: ffi::XIC,
+    im: ffi::XIM,
     window_proxy_data: Arc<Mutex<Option<WindowProxyData>>>,
 }
 
@@ -715,6 +715,16 @@ impl Window {
     #[inline]
     pub fn get_xlib_display(&self) -> *mut libc::c_void {
         self.x.display.display as *mut libc::c_void
+    }
+
+    #[inline]
+    pub fn get_xlib_screen_id(&self) -> *mut libc::c_void {
+        self.x.screen_id as *mut libc::c_void
+    }
+
+    #[inline]
+    pub fn get_xlib_xconnection(&self) -> Arc<XConnection> {
+        self.x.display.clone()
     }
 
     #[inline]
