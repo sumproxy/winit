@@ -96,7 +96,7 @@ pub mod os;
 /// }
 /// ```
 pub struct Window {
-    window: platform::Window, // TODO: OZKRIFF
+    window: platform::Window,
 }
 
 /// Object that allows you to build windows.
