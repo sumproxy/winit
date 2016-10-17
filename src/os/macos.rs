@@ -3,6 +3,7 @@
 use std::convert::From;
 use std::os::raw::c_void;
 use cocoa::appkit::NSApplicationActivationPolicy;
+use api::cocoa::IdRef;
 use {Window, WindowBuilder};
 
 /// Additional methods on `Window` that are specific to MacOS.
@@ -11,12 +12,22 @@ pub trait WindowExt {
     ///
     /// The pointer will become invalid when the glutin `Window` is destroyed.
     fn get_nswindow(&self) -> *mut c_void;
+
+    /// Returns the id of the cocoa `NSView` that is used by this window.
+    ///
+    ///
+    fn get_native_nsview(&self) -> &IdRef;
 }
 
 impl WindowExt for Window {
     #[inline]
     fn get_nswindow(&self) -> *mut c_void {
         self.window.platform_window() as *mut c_void
+    }
+
+    #[inline]
+    fn get_native_nsview(&self) -> &IdRef {
+        &self.window.get_native_view()
     }
 }
 
