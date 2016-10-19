@@ -65,8 +65,8 @@ pub use window::{WindowProxy, PollEventsIterator, WaitEventsIterator};
 pub use window::{AvailableMonitorsIter, MonitorId, get_available_monitors, get_primary_monitor};
 pub use native_monitor::NativeMonitorId;
 
-mod api;
-mod platform;
+pub mod api;
+pub mod platform;
 mod events;
 mod window;
 

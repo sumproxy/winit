@@ -11,22 +11,15 @@ use os::macos::ActivationPolicy;
 use objc::runtime::{Class, Object, Sel, BOOL, YES, NO};
 use objc::declare::ClassDecl;
 
-use cgl::{CGLEnable, kCGLCECrashOnRemovedFunctions, CGLSetParameter, kCGLCPSurfaceOpacity};
-
 use cocoa::base::{id, nil};
 use cocoa::foundation::{NSAutoreleasePool, NSDate, NSDefaultRunLoopMode, NSPoint, NSRect, NSSize,
                         NSString, NSUInteger};
-use cocoa::appkit::{self, NSApplication, NSEvent, NSOpenGLContext, NSOpenGLPixelFormat, NSView, NSWindow};
-
-use core_foundation::base::TCFType;
-use core_foundation::string::CFString;
-use core_foundation::bundle::{CFBundleGetBundleWithIdentifier, CFBundleGetFunctionPointerForName};
+use cocoa::appkit::{self, NSApplication, NSEvent, NSView, NSWindow};
 
 use core_graphics::display::{CGAssociateMouseAndMouseCursorPosition, CGMainDisplayID, CGDisplayPixelsHigh, CGWarpMouseCursorPosition};
 
 use std::ffi::CStr;
 use std::collections::VecDeque;
-use std::str::FromStr;
 use std::str::from_utf8;
 use std::sync::Mutex;
 use std::ops::Deref;
@@ -484,6 +477,11 @@ impl Window {
     }
 
     #[inline]
+    pub fn get_native_view(&self) -> &IdRef {
+        &self.view
+    }
+
+    #[inline]
     pub fn get_inner_size(&self) -> Option<(u32, u32)> {
         unsafe {
             let view_frame = NSView::frame(*self.view);
@@ -634,7 +632,7 @@ impl Window {
     }
 }
 
-struct IdRef(id);
+pub struct IdRef(id);
 
 impl IdRef {
     fn new(i: id) -> IdRef {

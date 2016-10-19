@@ -3,6 +3,7 @@
 use std::convert::From;
 use std::os::raw::c_void;
 use cocoa::appkit::NSApplicationActivationPolicy;
+use api::cocoa::IdRef;
 use {Window, WindowBuilder};
 
 /// Additional methods on `Window` that are specific to MacOS.
