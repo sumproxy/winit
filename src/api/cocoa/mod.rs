@@ -477,11 +477,6 @@ impl Window {
     }
 
     #[inline]
-    pub fn get_native_view(&self) -> &IdRef {
-        &self.view
-    }
-
-    #[inline]
     pub fn get_inner_size(&self) -> Option<(u32, u32)> {
         unsafe {
             let view_frame = NSView::frame(*self.view);
@@ -632,7 +627,7 @@ impl Window {
     }
 }
 
-pub struct IdRef(id);
+struct IdRef(id);
 
 impl IdRef {
     fn new(i: id) -> IdRef {
