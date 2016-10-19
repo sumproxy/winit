@@ -10,6 +10,8 @@ use api::x11::XConnection;
 use wayland_client::protocol::wl_display::WlDisplay;
 use wayland_client::protocol::wl_surface::WlSurface;
 
+pub use api::x11;
+
 /// Additional methods on `Window` that are specific to Unix.
 pub trait WindowExt {
     /// Returns a pointer to the `Window` object of xlib that is used by this window.
